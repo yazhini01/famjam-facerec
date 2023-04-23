@@ -4,20 +4,21 @@ from fastai.vision.widgets import *
 from contextlib import contextmanager
 import pathlib
 
-@contextmanager
-def set_posix_windows():
-    posix_backup = pathlib.PosixPath
-    try:
-        pathlib.PosixPath = pathlib.WindowsPath
-        yield
-    finally:
-        pathlib.PosixPath = posix_backup
+# uncomment in windows
+# @contextmanager
+# def set_posix_windows():
+#     posix_backup = pathlib.PosixPath
+#     try:
+#         pathlib.PosixPath = pathlib.WindowsPath
+#         yield
+#     finally:
+#         pathlib.PosixPath = posix_backup
+# EXPORT_PATH = pathlib.Path("family.pkl")
+# with set_posix_windows():
+#     learn = load_learner(EXPORT_PATH)
 
+learn = load_learner(pathlib.Path("family.pkl"))
 app = Flask(__name__)
-
-EXPORT_PATH = pathlib.Path("family.pkl")
-with set_posix_windows():
-    learn = load_learner(EXPORT_PATH)
 
 @app.route('/')
 def index():
